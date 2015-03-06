@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -23,10 +21,16 @@ import javax.swing.Timer;
 public class CharacterSelect extends JPanel implements ActionListener, MouseListener{
 	/*
 	 * Known Problems:
-	 * 	- Really slow averaging 10 FPS distorting flashing text
-	 * 
+	 *  
 	 */	
 	public Image image;
+	public Image background;
+	public Image oneSelect;
+	public Image twoSelect;
+	public Image threeSelect;
+	public Image fourSelect;
+	public Image ready;
+	
 	
 	public boolean playerOneSelect = false;
 	public boolean playerTwoSelect = false;
@@ -48,6 +52,11 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 	
 	public CharacterSelect(){
 		makeImages();
+		try {
+			background = ImageIO.read(new File("src\\firstPack\\GameStuff\\total.png")).getScaledInstance(700, 200, Image.SCALE_SMOOTH);
+			ready = ImageIO.read(new File("src\\firstPack\\GameStuff\\ready.png")).getScaledInstance(850, 50, Image.SCALE_SMOOTH);
+		} catch (IOException e) {
+		}
         setBackground(Color.WHITE);
         setFocusable(true);
         addMouseListener(this);
@@ -60,42 +69,29 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
-        int c = 0;
         if((selectedCharacter4 != -1) && (selectedCharacter3 != -1) && (selectedCharacter2 != -1) && (selectedCharacter1 != -1)){
         	allSelect = true;
         }
-        for(int y = 0; y < 200; y += 100){
-        	for(int x = 0; x < 700; x += 100){
-        		c++;
-        	    image = fileMap.get(c).getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            	//g2d.drawRect(x+60, y+40, 100, 100);
-            	g.drawImage(image, x+60, y+40, 100, 100, null);
-            }
-        }
+        g.drawImage(background, 60, 40, 700, 200, null);
         if(selectedCharacter1 != -1){               
-     	    image = fileMap.get(selectedCharacter1).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
-        	g.drawImage(image, 40, 290, 125, 150, null);
+        	g.drawImage(oneSelect, 40, 290, 125, 150, null);
         }
         if (selectedCharacter2 != -1){               
-      	    image = fileMap.get(selectedCharacter2).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
-        	g.drawImage(image, 248, 290, 125, 150, null);
+        	g.drawImage(twoSelect, 248, 290, 125, 150, null);
         }
 		if (selectedCharacter3 != -1){              
-	     	image = fileMap.get(selectedCharacter3).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
-			g.drawImage(image, 456, 290, 125, 150, null);
+			g.drawImage(threeSelect, 456, 290, 125, 150, null);
 		}
 		if (selectedCharacter4 != -1){             
-	     	image = fileMap.get(selectedCharacter4).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
-			g.drawImage(image, 665, 290, 125, 150, null);
+			g.drawImage(fourSelect, 665, 290, 125, 150, null);
 		}
 		if (allSelect){              
-	     	image = fileMap.get(0).getScaledInstance(850, 50, Image.SCALE_SMOOTH);
-			g.drawImage(image, 0, 200, 850, 50, null);
+			g.drawImage(ready, 0, 200, 850, 50, null);
 			g2d.drawRect(0, 200, 850, 50);
-			if(timer > 6){
+			if(timer > 10){
 	        	timer = 0;
 			}
-			else if (timer > 3){
+			else if (timer > 5){
 				g2d.setColor(Color.RED);
 	        	g2d.setFont(f);
 	        	g2d.drawString("Click here to start the match!", 260, 240);
@@ -103,11 +99,8 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 			}
 			else{
 				timer++;
-			}
-			//System.out.println(timer);
-			
+			}			
 		}
-		
 		g2d.setColor(Color.BLACK);
         g2d.drawRect(40, 290, 125, 150);
         g2d.drawRect(248, 290, 125, 150);
@@ -122,17 +115,12 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 				System.out.println(e);
 			}
 		}
-		try {
-			fileMap.put(0, ImageIO.read(new File("src\\firstPack\\GameStuff\\ready.png")));
-		} catch (IOException e) {
-			System.out.println(e);
-		}
     }
     public void change(){
     	repaint();
     }
 	public void actionPerformed(ActionEvent arg0) {
-		change();	
+		change();
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -169,43 +157,39 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
         	}
         }
 		if(checker != -1){
-			//System.out.println("Caught in Sector " + checker);
 			if(playerOneSelect){
-				//System.out.println("Character Set 1!");
 				selectedCharacter1 = checker;
+				oneSelect = fileMap.get(checker).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
 				playerOneSelect = false;
 			}
 			else if (playerTwoSelect){
-				//System.out.println("Character Set 2!");
 				selectedCharacter2 = checker;
+				twoSelect = fileMap.get(checker).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
 				playerTwoSelect = false;
 			}
 			else if (playerThreeSelect){
-				//System.out.println("Character Set 3!");
 				selectedCharacter3 = checker;
+				threeSelect = fileMap.get(checker).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
 				playerThreeSelect = false;
 			}
 			else if (playerFourSelect){
-				//System.out.println("Character Set 4!");
 				selectedCharacter4 = checker;
+				fourSelect = fileMap.get(checker).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
 				playerFourSelect = false;
 			}
     	}
 		else if(arg0.getX() >= 40 && arg0.getX() <= 165 && arg0.getY() >= 290 && arg0.getY() <= 440){
 			playerOneSelect = true;
-			//System.out.println("Player one Select!");
     	}
 		else if(arg0.getX() >= 248 && arg0.getX() <= 373 && arg0.getY() >= 290 && arg0.getY() <= 440){
 			playerTwoSelect = true;
-			//System.out.println("Player two Select!");
     	}
 		else if(arg0.getX() >= 456 && arg0.getX() <= 581 && arg0.getY() >= 290 && arg0.getY() <= 440){
 			playerThreeSelect = true;
-			//System.out.println("Player three Select!");
     	}
 		else if(arg0.getX() >= 665 && arg0.getX() <= 790 && arg0.getY() >= 290 && arg0.getY() <= 440){
 			playerFourSelect = true;
-			//System.out.println("Player four Select!");
     	}
+		
 	}
 }
