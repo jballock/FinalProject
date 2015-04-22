@@ -20,7 +20,7 @@ public class MainMenu extends JPanel implements ActionListener, KeyListener{
         setFocusable(true);
         addKeyListener(this);
 
-        Timer timer = new Timer(1000/30, this);
+        Timer timer = new Timer(1000/60, this);
         timer.start();
     }
     public void paintComponent(Graphics g){
@@ -49,7 +49,10 @@ public class MainMenu extends JPanel implements ActionListener, KeyListener{
 	}
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			setFocusable(false);
+			removeKeyListener(this);
 			CharacterSelect panel1 = new CharacterSelect();
+			//CharacterSelect panel1 = new CharacterSelect();
 			MainClass.changePanel(panel1);
 		}			
 	}

@@ -61,10 +61,8 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
         setFocusable(true);
         addMouseListener(this);
         
-        requestFocusInWindow();
-        
-        Timer timer = new Timer(1000/60, this);
-        timer.start();
+        Timer time = new Timer(1000/60, this);
+        time.start();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -140,6 +138,8 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 		if(allSelect){
 			if(arg0.getX() >= 0 && arg0.getX() <= 850 && arg0.getY() >= 200 && arg0.getY() <= 250){
 				//System.out.println("Moving on!");
+				setFocusable(false);
+				removeMouseListener(this);
 				Game panel1 = new Game();
 				MainClass.changePanel(panel1);
 	    	}

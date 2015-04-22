@@ -2,6 +2,8 @@ package firstPack;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 
@@ -19,13 +21,14 @@ public class MainClass {
         frame.setVisible(true);    
 
 	}
+	public static void pack(){
+	}
 	public static void changePanel(Component c){
 		frame.getContentPane().removeAll();
 		frame.getContentPane().invalidate();
 		frame.getContentPane().add(c);
 		frame.getContentPane().validate();
-		frame.getContentPane().setVisible(true);    
+		frame.getContentPane().setVisible(true); 
 		//System.out.println("Changed Panel");
 	}
-
 }
