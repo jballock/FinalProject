@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,6 +24,11 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 	 * Known Problems:
 	 *  
 	 */	
+	public static Color one;
+	public static Color two;
+	public static Color three;
+	public static Color four;
+	
 	public Image image;
 	public Image background;
 	public Image oneSelect;
@@ -44,7 +50,7 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 	public int selectedCharacter3 = -1;
 	public int selectedCharacter4 = -1;
 	
-	public Map<Integer, Image> fileMap = new HashMap<>();
+	public Map<Integer, BufferedImage> fileMap = new HashMap<>();
 	
 	public int timer = 0;
 	
@@ -105,6 +111,14 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
         g2d.drawRect(456, 290, 125, 150);
         g2d.drawRect(665, 290, 125, 150);
     }
+    public static BufferedImage toBufferedImage(Image img)
+    {
+        BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D bGr = bimage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+        return bimage;
+    }
     public void makeImages(){
     	for(int i = 0; i < 14; i++){
 			try {
@@ -161,11 +175,13 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 				selectedCharacter1 = checker;
 				oneSelect = fileMap.get(checker).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
 				playerOneSelect = false;
+				one = new Color(toBufferedImage(oneSelect).getRGB(0, 0));
 			}
 			else if (playerTwoSelect){
 				selectedCharacter2 = checker;
 				twoSelect = fileMap.get(checker).getScaledInstance(125, 150, Image.SCALE_SMOOTH);
 				playerTwoSelect = false;
+				two = new Color(toBufferedImage(twoSelect).getRGB(0, 0));
 			}
 			else if (playerThreeSelect){
 				selectedCharacter3 = checker;

@@ -15,6 +15,9 @@ import javax.swing.KeyStroke;
 import javax.swing.Timer;
 
 public class Game extends JPanel implements ActionListener{
+	public static final Color PLAYER1 = CharacterSelect.one;
+	public static final Color PLAYER2 = CharacterSelect.two;
+	
 	public static boolean leftPressed = false;
 	public static boolean rightPressed = false;
 	
@@ -113,7 +116,7 @@ public class Game extends JPanel implements ActionListener{
         	}
         }
         Graphics2D g2d = (Graphics2D)g;
-        g2d.setColor(Color.GREEN);
+        g2d.setColor(PLAYER1);
         g2d.fillArc(ballx, bally, 50, 45, 0, 180);
         if(leftBlock){
         	g2d.fillRect(ballx -4, bally +2, 3, 13);
@@ -129,7 +132,7 @@ public class Game extends JPanel implements ActionListener{
         		green++;
         	}
         }
-        g2d.setColor(Color.RED);
+        g2d.setColor(PLAYER2);
         g2d.fillArc(ball2x, ball2y, 50, 45, 0, 180);
         if(proj && shootleft){
         	projx = projx - 35;
@@ -168,9 +171,9 @@ public class Game extends JPanel implements ActionListener{
         
         	}
         }
-        g2d.setColor(Color.GREEN);
+        g2d.setColor(PLAYER1);
         g2d.drawString(Integer.toString(green), 100, 50);
-        g2d.setColor(Color.RED);
+        g2d.setColor(PLAYER2);
         g2d.drawString(Integer.toString(red), 700, 50);
     }
     public static void reset(){
