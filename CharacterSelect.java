@@ -62,7 +62,7 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
-        if((selectedCharacter4 != -1) && (selectedCharacter3 != -1) && (selectedCharacter2 != -1) && (selectedCharacter1 != -1)){
+        if((selectedCharacter2 != -1) && (selectedCharacter1 != -1)){
         	allSelect = true;
         }
         g.drawImage(background, 60, 40, 700, 200, null);
@@ -79,15 +79,15 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 			g.drawImage(fourSelect, 665, 290, 125, 150, null);
 		}
 		if (allSelect){              
-			g.drawImage(ready, 0, 200, 850, 50, null);
-			g2d.drawRect(0, 200, 850, 50);
+			g.drawImage(ready, 0, 240, 850, 50, null);
+			g2d.drawRect(0, 240, 850, 50);
 			if(timer > 10){
 	        	timer = 0;
 			}
 			else if (timer > 5){
 				g2d.setColor(Color.RED);
 	        	g2d.setFont(f);
-	        	g2d.drawString("Click here to start the match!", 260, 240);
+	        	g2d.drawString("Click here to start the match!", 260, 275);
 	        	timer++;
 			}
 			else{
@@ -130,7 +130,7 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 		int checker = -1;
 		int counter = 1;
 		if(allSelect){
-			if(arg0.getX() >= 0 && arg0.getX() <= 850 && arg0.getY() >= 200 && arg0.getY() <= 250){
+			if(arg0.getX() >= 0 && arg0.getX() <= 850 && arg0.getY() >= 240 && arg0.getY() <= 290){
 				//System.out.println("Moving on!");
 				setFocusable(false);
 				removeMouseListener(this);
