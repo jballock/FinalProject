@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
 public class MainMenu extends JPanel implements ActionListener, KeyListener{
@@ -19,7 +20,6 @@ public class MainMenu extends JPanel implements ActionListener, KeyListener{
         setBackground(Color.BLACK);
         setFocusable(true);
         addKeyListener(this);
-
         Timer timer = new Timer(1000/60, this);
         timer.start();
     }

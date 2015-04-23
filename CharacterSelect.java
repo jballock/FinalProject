@@ -1,6 +1,7 @@
 package firstPack;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
 public class CharacterSelect extends JPanel implements ActionListener, MouseListener{
@@ -30,12 +32,12 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 	public static Color four;
 	
 	public Image image;
-	public Image background;
+	public Image background = MainClass.background;
 	public Image oneSelect;
 	public Image twoSelect;
 	public Image threeSelect;
 	public Image fourSelect;
-	public Image ready;
+	public Image ready = MainClass.ready;
 	
 	
 	public boolean playerOneSelect = false;
@@ -50,23 +52,16 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
 	public int selectedCharacter3 = -1;
 	public int selectedCharacter4 = -1;
 	
-	public Map<Integer, BufferedImage> fileMap = new HashMap<>();
+	public Map<Integer, BufferedImage> fileMap = MainClass.hash;
 	
 	public int timer = 0;
 	
 	public static Font f = new Font("Garamond", Font.BOLD , 24);
-	
-	public CharacterSelect(){
-		makeImages();
-		try {
-			background = ImageIO.read(new File("src\\firstPack\\GameStuff\\total.png")).getScaledInstance(700, 200, Image.SCALE_SMOOTH);
-			ready = ImageIO.read(new File("src\\firstPack\\GameStuff\\ready.png")).getScaledInstance(850, 50, Image.SCALE_SMOOTH);
-		} catch (IOException e) {
-		}
+	public CharacterSelect(){ 
         setBackground(Color.WHITE);
         setFocusable(true);
         addMouseListener(this);
-        
+
         Timer time = new Timer(1000/60, this);
         time.start();
     }
@@ -118,15 +113,6 @@ public class CharacterSelect extends JPanel implements ActionListener, MouseList
         bGr.drawImage(img, 0, 0, null);
         bGr.dispose();
         return bimage;
-    }
-    public void makeImages(){
-    	for(int i = 0; i < 14; i++){
-			try {
-				fileMap.put((i+1), ImageIO.read(new File("src\\firstPack\\GameStuff\\pic"+ (i+1) +".png")));
-			} catch (IOException e) {
-				System.out.println(e);
-			}
-		}
     }
     public void change(){
     	repaint();
