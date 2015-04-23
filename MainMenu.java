@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
 public class MainMenu extends JPanel implements ActionListener, KeyListener{
